@@ -6,7 +6,12 @@
 
     onMount(async () => {
         try {
-            const request = await fetch("http://localhost:8000/");
+            const userToken = JSON.parse(localStorage.getItem('user')).access_token
+            const request = await fetch("http://localhost:8000/", {
+                headers: {
+                'Authorization': `Bearer ${userToken}` // Replace yourAuthToken with the actual token
+            }
+            });
             const response = await request.json()
             console.log(response);
             todos = response
@@ -39,30 +44,6 @@
     }
 </script>
 
-<style>
-    main {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        min-height: 70vh;
-    }
-
-    table {
-        border: 1px solid black;
-        padding: 3px;
-    }
-
-    tr {
-        border: 1px solid black;
-        padding: 10px;
-    }
-
-    button {
-        color: red;
-    }
-</style>
-
 <main>
     <h2>Your todos</h2>
     <table>
@@ -88,3 +69,27 @@
         </tbody>
     </table>
 </main>
+
+<style>
+    main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 70vh;
+    }
+
+    table {
+        border: 1px solid black;
+        padding: 3px;
+    }
+
+    tr {
+        border: 1px solid black;
+        padding: 10px;
+    }
+
+    button {
+        color: red;
+    }
+</style>
