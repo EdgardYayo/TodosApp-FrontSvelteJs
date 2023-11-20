@@ -16,6 +16,8 @@
         if(response.access_token){
             localStorage.setItem('user', JSON.stringify(response))
             goto('/todos')
+        } else {
+            alert('Bad credentials, the username or password are wrong, check and try again')
         }
     }
 
